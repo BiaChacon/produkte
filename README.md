@@ -1,4 +1,4 @@
-# produkte-frontend
+# Produkte Front-end
 Versão CLI: Vue CLI 3
 ## Project setup
 ```
