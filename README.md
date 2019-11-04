@@ -1,5 +1,5 @@
 # produkte-frontend
-
+Versão CLI: Vue CLI 3
 ## Project setup
 ```
 npm install
@@ -22,3 +22,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Back-end
+https://github.com/BiaChacon/produkte-backend

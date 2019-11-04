@@ -3,22 +3,28 @@
 
     <nav>
       <div class="nav-wrapper blue darken-1">
-        <a href="#" class="brand-logo center">Produtos Front</a>
+        <a href="#" class="brand-logo center">Produkte</a>
       </div>
     </nav>
 
     <div class="container">
 
-      <form>
+      <ul>
+        <li v-for="(erro, index) of errors" :key="index">
+            campo <b>{{ erro.field }}</b> - {{ erro.defaultMessage }}
+        </li>
+      </ul>
+      
+      <form @submit.prevent="speichern">
 
-          <label>Nome</label>
-          <input type="text" placeholder="Nome">
-          <label>Quantidade</label>
-          <input type="number" placeholder="QTD">
-          <label>Valor</label>
-          <input type="text" placeholder="Valor">
+          <label>Name</label>
+          <input type="text" placeholder="Name" v-model="produkt.name">
+          <label>Menge</label>
+          <input type="number" placeholder="Menge" v-model="produkt.menge">
+          <label>Wert</label>
+          <input type="text" placeholder="Wert" v-model="produkt.wert">
 
-          <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
+          <button class="waves-effect waves-light btn-small">Speichern<i class="material-icons left">save</i></button>
 
       </form>
 
@@ -27,24 +33,24 @@
         <thead>
 
           <tr>
-            <th>NOME</th>
-            <th>QTD</th>
-            <th>VALOR</th>
-            <th>OPÇÕES</th>
+            <th>NAME</th>
+            <th>MENGE</th>
+            <th>WERT</th>
+            <th>OPTIONEN</th>
           </tr>
 
         </thead>
 
         <tbody>
 
-          <tr>
+          <tr v-for="produkt of produkte" :key="produkt.id">
 
-            <td>Arduino</td>
-            <td>100</td>
-            <td>50.00</td>
+            <td>{{produkt.name}}</td>
+            <td>{{produkt.menge}}</td>
+            <td>{{produkt.wert}}</td>
             <td>
-              <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
-              <button class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
+              <button @click="update(produkt)" class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
+              <button @click="deletar(produkt)" class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
             </td>
 
           </tr>
@@ -57,3 +63,79 @@
 
   </div>
 </template>
+
+<script>
+
+import Produkt from './services/produkte'
+
+export default{
+
+  data(){
+    return {
+      produkt: {
+        name: '',
+        menge: '',
+        wert: ''
+      },
+      produkte: []
+    }
+  },
+
+  mounted(){
+      this.liste()
+  },
+
+  methods:{
+
+    liste(){
+      Produkt.liste().then(response => {
+        this.produkte = response.data
+      })
+    },
+
+    speichern(produkt){
+
+      if(!this.produkt.id){
+
+        Produkt.speichern(this.produkt).then(response => {
+          this.produkt = {}
+          this.liste()
+          this.errors = {}
+        }).catch(e => {
+          this.errors = e.response.data.errors
+        }) 
+
+      }else{
+        Produkt.update(this.produkt).then(response => {
+          this.produkt = {}
+          this.liste()
+          this.errors = {}
+        }).catch(e => {
+          this.errors = e.response.data.errors
+        }) 
+      }
+       
+    },
+
+    deletar(produkt){
+      Produkt.delete(produkt).then(response =>{
+        this.liste();
+        this.errors = {}
+      }).catch(e => {
+        this.errors = e.response.data.errors
+      })
+    },
+
+    edit(produkt){
+      this.produkt = produkt
+    }
+      
+  }
+
+}
+
+</script>
+
+<style>
+
+</style>
