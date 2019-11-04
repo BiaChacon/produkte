@@ -10,7 +10,7 @@ export default {
         return http.post('produkt', produkt)
     },
 
-    delete:(produkt) =>{
+    deletar:(produkt) =>{
         return http.delete('produkt', produkt)
     },
 

@@ -49,7 +49,7 @@
             <td>{{produkt.menge}}</td>
             <td>{{produkt.wert}}</td>
             <td>
-              <button @click="update(produkt)" class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
+              <button @click="edit(produkt)" class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
               <button @click="deletar(produkt)" class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
             </td>
 
@@ -93,11 +93,12 @@ export default{
       })
     },
 
-    speichern(produkt){
+    speichern(){
 
       if(!this.produkt.id){
 
         Produkt.speichern(this.produkt).then(response => {
+          window.console.log(response)
           this.produkt = {}
           this.liste()
           this.errors = {}
@@ -107,6 +108,7 @@ export default{
 
       }else{
         Produkt.update(this.produkt).then(response => {
+          window.console.log(response)
           this.produkt = {}
           this.liste()
           this.errors = {}
@@ -118,7 +120,8 @@ export default{
     },
 
     deletar(produkt){
-      Produkt.delete(produkt).then(response =>{
+      Produkt.deletar(produkt).then(response =>{
+        window.console.log(response)
         this.liste();
         this.errors = {}
       }).catch(e => {
