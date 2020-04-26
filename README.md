@@ -25,13 +25,13 @@ Application of a simple CRUD of products, using Spring Boot to build the Rest AP
 - [Vue Js](https://vuejs.org/)
 
 ### 🌐 Backend
-Technologies used in the [backend](https://github.com/BiaChacon/produkte/master/backend):
+Technologies used in the [backend](https://github.com/BiaChacon/produkte/tree/master/backend):
 - Spring Boot;
 - PostegreSQL;
 - Heroku.
 
 ### 💻 Frontend
-Technologies used in the [frontend](https://github.com/BiaChacon/produkte/master/frontend):
+Technologies used in the [frontend](https://github.com/BiaChacon/produkte/tree/master/frontend):
 - Vue Js.
 
 <br/>
